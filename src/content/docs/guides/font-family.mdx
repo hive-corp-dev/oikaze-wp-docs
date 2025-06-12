@@ -1,0 +1,69 @@
+---
+title: フォントについて
+description: Get started building your docs site with Starlight.
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+フォントの設定や使い方について。
+
+## フォントファミリーの設定方法
+
+Google Fonts を使用する場合は、`Enqueue.php`に以下のように記述する。
+
+export const fontCode = `
+/**
+ * ウェブフォント用のスクリプト、スタイルを読み込む
+ *
+ * @return void
+ */
+
+public function fonts(): void
+{
+// Google Fonts
+wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Madimi+One&family=Noto+Sans+JP:wght@100..900&display=swap', [], null);
+}
+`;
+export const fileName = "app/themes/theme/inc/Setup/Enqueue.php";
+
+<Code code={fontCode} lang="php" title={fileName} />
+
+URL の部分は、[Google Fonts](https://fonts.google.com/)のサイトから必要なフォントを選択して取得する。
+
+## フォントファミリーの使い方
+
+フォントファミリーを使用するには、まず CSS 変数を設定し、次に Tailwind のクラスとして記述する。
+
+### フォントファミリーを CSS 変数で設定する
+
+<Code
+  code={`
+@theme {
+  --default-font-family: "Noto Sans JP", sans-serif;
+  --font-rounded: "M PLUS Rounded 1c", sans-serif;
+  --font-madimi: "Madimi One", sans-serif;
+}
+`}
+  lang="php"
+  title="app/themes/theme/assets/src/styles/theme.css"
+/>
+
+<Aside type="note">サイト全体のデフォルトフォントは、`--default-font-family` に指定する。</Aside>
+
+### Tailwind の記述方法で使用する
+
+Tailwind では、`font-{slug}`の形式でフォントファミリーを指定できる。
+
+<Code
+  code={`
+<div class="font-rounded">
+  <p>このテキストは M PLUS Rounded 1c フォントを使用しています。</p>
+</div>
+<div class="font-madimi">
+  <p>このテキストは Madimi One フォントを使用しています。</p>
+</div>
+`}
+  lang="html"
+  title="example.twig"
+/>

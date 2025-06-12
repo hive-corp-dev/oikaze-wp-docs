@@ -1,0 +1,75 @@
+---
+title: 文字サイズについて
+description: Get started building your docs site with Starlight.
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+Tailwind CSS のフォントサイズは、`text-{size}`クラスを使用して設定できる。
+
+- `text-xs` : 0.75rem
+- `text-sm` : 0.875rem
+- `text-base` : 1rem
+- `text-lg` : 1.125rem
+- `text-xl` : 1.25rem
+- `text-2xl` : 1.5rem
+
+ただこの方法は直感的ではないので、次のようにカスタムの文字サイズを定義する。
+
+## カスタム文字サイズの設定方法
+
+カスタム文字サイズを追加する場合は、`theme.json`の`"typography"`内の`"fontSizes"`に記述する。
+
+- `name`: 文字サイズ名
+- `slug`: 文字のスラッグ
+- `size`: rem に換算した文字サイズ
+
+export const jsonCode = `
+{
+  "settings": {
+    "typography": {
+      "fontSizes": [
+        {
+          "name": "10px",
+          "slug": "10",
+          "size": "0.625rem"
+        },
+        {
+          "name": "18px",
+          "slug": "18",
+          "size": "1.125rem"
+        },
+        {
+          "name": "32px",
+          "slug": "32",
+          "size": "2rem"
+        },
+        {
+          "name": "60px",
+          "slug": "60",
+          "size": "3.75rem"
+        },
+      ]
+    }
+  }
+}
+`;
+export const fileName = "app/themes/theme/theme.json";
+
+<Code code={jsonCode} lang="json" title={fileName} />
+
+## カスタム文字サイズの使用方法
+
+カスタム文字サイズを使用するには、以下のように`text-{slug}`を使用する。
+
+<Code
+  code={`
+  <p class="text-18">このテキストの文字サイズは18pxです。</p>
+  <p class="text-32 md:text-60">このテキストの文字サイズは、768px以上では60pxです。それ以下では32pxです。</p>
+  `}
+  lang="html"
+  title="example.twig"
+/>
+
+<Aside type="caution">`theme.json`の内容を反映させるには、開発環境をリスタートする必要がある。</Aside>

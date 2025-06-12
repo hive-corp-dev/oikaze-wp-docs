@@ -1,0 +1,62 @@
+---
+title: カスタム色について
+description: 色の設定方法など。
+---
+
+プロジェクトにカスタム色を設定する方法、使用する方法について。
+
+## カスタム色の設定方法
+
+カスタム色を追加する場合は、`theme.json`の`"palette"`に記述する。
+
+- `name`: 色の名前
+- `slug`: 色のスラッグ（識別子）
+- `color`: 色の値（16 進数カラーコード）
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+export const exampleCode = `
+{
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "name": "Base",
+          "slug": "base",
+          "color": "#4C331F"
+        },
+        {
+          "name": "ブラック",
+          "slug": "black",
+          "color": "#000000"
+        },
+        {
+          "name": "メインカラー",
+          "slug": "main",
+          "color": "#3d50f5"
+        },
+      ],
+    }
+  }
+}
+`;
+export const fileName = "app/themes/theme/theme.json";
+
+<Code code={exampleCode} lang="json" title={fileName} />
+
+## カスタム色の使用方法
+
+カスタム色を使用するには、`theme.json`の`"palette"`に記述した`"slug"`を使用する。
+
+`bg-{slug}`で背景色を、`text-{slug}`で文字色を指定できる。
+
+export const exampleHtml = `
+<div class="bg-main text-black">
+  <p>メインカラーの背景色とブラックの文字色を使用しています。</p>
+</div>
+`;
+
+<Code code={exampleHtml} lang="html" title="example.twig" />
+
+<Aside type="caution">`theme.json`の内容を反映させるには、開発環境をリスタートする必要がある。</Aside>
