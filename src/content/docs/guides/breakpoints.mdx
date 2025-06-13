@@ -1,0 +1,49 @@
+---
+title: ブレイクポイントについて
+description: ブレイクポイントの設定方法など。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+ブレイクポイントを設定する方法、また使用する方法について。
+
+## ブレイクポイントの設定方法
+
+ブレイクポイントは、ルートの`tailwind.config.js`に定義されている。
+
+<Code
+  code={`
+  module.exports = {
+    theme: {
+      screens: {
+        sm: "640px", // ≥640px
+        md: "768px", // ≥768px
+        lg: "1024px", // ≥1024px
+        xl: "1280px", // ≥1280px
+        "2xl": "1536px", // ≥1536px
+        // カスタムでブレイクポイントを追加することも可能
+        max: "1920px", // ≥1920px
+      },
+    },
+  };
+  `}
+  lang="js"
+  title="tailwind.config.js"
+/>
+
+基本的にはデフォルトの数値のまま使用する。
+
+特別なブレイクポイントは、カスタムブレイクポイントを作成して追加する。
+
+## ブレイクポイントの使用方法
+
+ブレイクポイントは、Tailwind のクラスを使用して適用する。
+
+<Code
+  code={`
+    <div class="p-4 sm:p-8 md:p-12 lg:p-24 xl:p-30">この要素のpaddingは、画面サイズに応じて変わります。</div>
+
+    <div class="text-base md:text-32 lg:text-60">このテキストのサイズは、画面サイズに応じて変わります。</div>
+
+`} lang="js" title="tailwind.config.js" />

@@ -6,17 +6,24 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "My Docs",
-      social: [{ icon: "github", label: "GitHub", href: "https://github.com/withastro/starlight" }],
+      title: "Oikaze WP Docs",
+      defaultLocale: "ja",
+      locales: {
+        root: {
+          label: "日本語",
+          lang: "ja",
+        },
+      },
       sidebar: [
         {
           label: "ガイド",
-          // items: [
-          //   // Each item here is one entry in the navigation menu.
-          //   // { label: "Example Guide", slug: "guides/example" },
-
-          // ],
-          autogenerate: { directory: "guides" },
+          items: [
+            { slug: "guides/font-family" },
+            { slug: "guides/font-size" },
+            { slug: "guides/color" },
+            { slug: "guides/breakpoints" },
+            { slug: "guides/background-image" },
+          ],
         },
         {
           label: "参照",

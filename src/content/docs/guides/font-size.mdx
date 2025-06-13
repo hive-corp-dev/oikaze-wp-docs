@@ -8,12 +8,9 @@ import { Aside } from "@astrojs/starlight/components";
 
 Tailwind CSS のフォントサイズは、`text-{size}`クラスを使用して設定できる。
 
-- `text-xs` : 0.75rem
 - `text-sm` : 0.875rem
 - `text-base` : 1rem
-- `text-lg` : 1.125rem
-- `text-xl` : 1.25rem
-- `text-2xl` : 1.5rem
+- `text-lg` : 1.125rem など
 
 ただこの方法は直感的ではないので、次のようにカスタムの文字サイズを定義する。
 
@@ -23,7 +20,7 @@ Tailwind CSS のフォントサイズは、`text-{size}`クラスを使用して
 
 - `name`: 文字サイズ名
 - `slug`: 文字のスラッグ
-- `size`: rem に換算した文字サイズ
+- `size`: rem に換算した文字サイズ（16 で割る）
 
 export const jsonCode = `
 {

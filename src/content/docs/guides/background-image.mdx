@@ -1,0 +1,103 @@
+---
+title: 背景画像について
+description: 背景画像の設定方法など。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+import { Steps } from "@astrojs/starlight/components";
+
+CSS で背景画像を使用する方法について。
+
+背景画像は、**再利用性が高い場合は CSS 変数 & Tailwind**、**一度きりの使用であればインラインスタイル**を使用する。
+
+## CSS 変数 & Tailwind を使用する
+
+複数のページで共通の背景画像を使う場合は、CSS 変数と Tailwind を使用して設定する。
+
+### 方法 1. 画像のパスのみを変数に設定する
+
+export const cssVarCode = `
+@theme {
+  --texture: url("/images/bg-texture.png");
+}
+`;
+
+export const cssLang = "css";
+export const themeCssPath = "theme/assets/src/styles/theme.css";
+
+<Steps>
+
+1.  画像を assets ディレクトリに配置する
+
+    画像は、`theme/assets/src/public/images`配下のディレクトリに配置する。
+
+2.  CSS 変数を定義する
+
+    CSS 変数は、`theme.css`の`@theme`セクションに定義する。
+
+    <Code code={cssVarCode} lang={cssLang} title={themeCssPath} />
+
+3.  Tailwind のクラスで背景画像を設定する
+
+    `bg-[image:var(--variable)]`を使用して、背景画像を設定する。
+
+    ```html
+    <div class="bg-[image:var(--texture)]">背景画像が適用されます</div>
+
+    <div class="bg-[image:var(--texture)] bg-cover bg-no-repeat">背景画像と、サイズやリピートの設定が適用されます</div>
+    ```
+
+</Steps>
+
+### 方法 2. 画像のパスとその他設定をカスタムユーティリティクラスとして登録する
+
+背景画像 + サイズやリピートの設定をまとめて登録したい場合は、カスタムユーティリティクラスを作成する。
+
+<Steps>
+
+1.  画像を assets ディレクトリに配置する
+
+    画像は、`theme/assets/src/public/images`配下のディレクトリに配置する。
+
+2.  CSS 変数を定義する
+
+    CSS 変数は、`theme.css`の`@theme`セクションに定義する。
+
+    <Code code={cssVarCode} lang={cssLang} title={themeCssPath} />
+
+3.  Tailwind のカスタムユーティリティクラスを定義する
+
+    `theme.css`の`@layer utilities`セクションに、カスタムユーティリティクラスを定義する。
+
+    ```css
+    @layer utilities {
+      .bg-texture {
+        @apply bg-(image:--texture);
+        /* 以下追加スタイルを記述 */
+        background-size: 1200px 1200px;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+    }
+    ```
+
+4.  Tailwind のクラスで背景画像を設定する
+
+    カスタムユーティリティクラスを使用して、背景画像を設定する。
+
+    ```html
+    <div class="bg-texture">背景画像やその他設定が適用されます</div>
+    ```
+
+</Steps>
+
+## インラインスタイルを使用する
+
+一度きりの使用であれば、インラインスタイルを使用して背景画像を設定する。
+
+```html
+<div style="background-image: url('{{ assets('images/bg.png') }}');">背景画像が適用されます</div>
+```
+
+<Aside type="note">`assets()`関数は`theme/inc/Timber/Twig.php:L19`で定義されている。</Aside>

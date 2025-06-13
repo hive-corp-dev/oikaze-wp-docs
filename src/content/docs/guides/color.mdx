@@ -1,13 +1,13 @@
 ---
-title: カスタム色について
+title: 色について
 description: 色の設定方法など。
 ---
 
-プロジェクトにカスタム色を設定する方法、使用する方法について。
+プロジェクトに色を設定する方法、使用する方法について。
 
-## カスタム色の設定方法
+## 色の設定方法
 
-カスタム色を追加する場合は、`theme.json`の`"palette"`に記述する。
+色を追加する場合は、`theme.json`の`"palette"`に記述する。
 
 - `name`: 色の名前
 - `slug`: 色のスラッグ（識別子）
@@ -45,16 +45,20 @@ export const fileName = "app/themes/theme/theme.json";
 
 <Code code={exampleCode} lang="json" title={fileName} />
 
-## カスタム色の使用方法
+## 色の使用方法
 
-カスタム色を使用するには、`theme.json`の`"palette"`に記述した`"slug"`を使用する。
+色を使用するには、`theme.json`の`"palette"`に記述した`"slug"`を使用する。
 
-`bg-{slug}`で背景色を、`text-{slug}`で文字色を指定できる。
+- `bg-{slug}`: 背景色
+- `text-{slug}`: 文字色
+- `border-{slug}`: ボーダーの色
 
 export const exampleHtml = `
-<div class="bg-main text-black">
-  <p>メインカラーの背景色とブラックの文字色を使用しています。</p>
-</div>
+<div class="bg-main">背景色はメインカラーです。</div>
+
+<p class="text-main">文字色はメインカラーです。</p>
+
+<div class="border border-main">ボーダーはメインカラーです。</div>
 `;
 
 <Code code={exampleHtml} lang="html" title="example.twig" />
