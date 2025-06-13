@@ -15,6 +15,7 @@ description: 色の設定方法など。
 
 import { Code } from "@astrojs/starlight/components";
 import { Aside } from "@astrojs/starlight/components";
+import DevCaution from "../../../components/DevCaution.astro";
 
 export const exampleCode = `
 {
@@ -63,4 +64,4 @@ export const exampleHtml = `
 
 <Code code={exampleHtml} lang="html" title="example.twig" />
 
-<Aside type="caution">`theme.json`の内容を反映させるには、開発環境をリスタートする必要がある。</Aside>
+<DevCaution />

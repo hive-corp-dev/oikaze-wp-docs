@@ -1,0 +1,93 @@
+---
+title: コンテナー
+description: コンテナーコンポーネントの作成ガイドなど。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+コンテンツの最大幅・左右の余白の設定、中央寄せの役割を持つコンテナー要素の作成方法について。
+
+## 1. プロジェクト全体で何パターンの最大幅があるかを確認
+
+プロジェクト全体で使用されている最大幅のパターンを確認する。
+
+たとえば、以下の 3 つのパターンがあるとする。
+
+- `960px`
+- `1100px`
+- `1280px`
+
+## 2. config ファイルに最大幅を設定
+
+最大幅は、`tailwind.config.js`の`theme.extend.maxWidth`に設定する。
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      maxWidth: {
+        small: "60rem", // 960px
+        normal: "68.75rem", // 1100px
+        large: "80rem", // 1280px
+      },
+    },
+  },
+};
+```
+
+## 3. コンテナー用のクラスを div 要素に設定
+
+- `max-w-{size}`クラスを使用して、最大幅を設定
+- `mx-auto`クラスを使用して、中央寄せ
+- `px-{size}`クラスを使用して、左右の余白を設定
+
+```html
+<div class="max-w-normal mx-auto px-5">
+  <!-- コンテンツ -->
+</div>
+```
+
+レスポンシブ対応するとこんな感じになる。
+
+```html
+<div class="max-w-full px-5 mx-auto lg:max-w-large lg:px-10">
+  <!-- コンテンツ -->
+</div>
+```
+
+### カスタムユーティリティクラスにしてもいいかも
+
+`theme/assets/src/styles/theme.css`の`@layer utilities`セクションに、カスタムユーティリティクラスを定義する。
+
+```css
+@layer utilities {
+  .container-small {
+    @apply max-w-full px-5 mx-auto lg:max-w-large lg:px-10;
+  }
+
+  .container-normal {
+    @apply max-w-full px-5 mx-auto lg:max-w-normal lg:px-10;
+  }
+
+  .container-large {
+    @apply max-w-full px-5 mx-auto lg:max-w-large lg:px-10;
+  }
+}
+```
+
+以下のようにクラスを使用する。
+
+```html
+<div class="container-small">
+  <!-- コンテンツ -->
+</div>
+<div class="container-normal">
+  <!-- コンテンツ -->
+</div>
+<div class="container-large">
+  <!-- コンテンツ -->
+</div>
+```
+
+見た目がすっきりする & ひと目でコンテナー要素だと分かるから良さそう。

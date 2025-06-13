@@ -1,0 +1,104 @@
+---
+title: 行間について
+description: 行間の設定方法など。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+import DevCaution from "../../../components/DevCaution.astro";
+
+Tailwind では、文字の高さは`leading-{size}`クラスを使用して設定できる。
+
+<table>
+  <thead>
+    <tr>
+      <th>クラス名</th>
+      <th>CSS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`leading-3`</td>
+      <td>`line-height: 0.75rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-4`</td>
+      <td>`line-height: 1rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-5`</td>
+      <td>`line-height: 1.25rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-6`</td>
+      <td>`line-height: 1.5rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-7`</td>
+      <td>`line-height: 1.75rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-8`</td>
+      <td>`line-height: 2rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-9`</td>
+      <td>`line-height: 2.25rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-10`</td>
+      <td>`line-height: 2.5rem;`</td>
+    </tr>
+    <tr>
+      <td>`leading-none`</td>
+      <td>`line-height: 1;`</td>
+    </tr>
+    <tr>
+      <td>`leading-tight`</td>
+      <td>`line-height: 1.25;`</td>
+    </tr>
+    <tr>
+      <td>`leading-snug`</td>
+      <td>`line-height: 1.375;`</td>
+    </tr>
+    <tr>
+      <td>`leading-normal`</td>
+      <td>`line-height: 1.5;`</td>
+    </tr>
+    <tr>
+      <td>`leading-relaxed`</td>
+      <td>`line-height: 1.625;`</td>
+    </tr>
+    <tr>
+      <td>`leading-loose`</td>
+      <td>`line-height: 2;`</td>
+    </tr>
+  </tbody>
+</table>
+
+基本的には`rem`指定ではなく`leading-none`から`leading-loose`までのクラスを使用する。
+
+サイト全体のデフォルトの行間は、`leading-normal`に設定する。
+
+もしデフォルトの行間が`1.5`以外の場合は、`tailwind.config.js`の`theme.extend.lineHeight`から上書きする。
+
+## カスタム行間の設定方法
+
+行間の上書き及びカスタム行間の追加は、`tailwind.config.js`の`theme.extend.lineHeight`に記述する。
+
+export const configCode = `
+  module.exports = {
+    theme: {
+      extend: {
+        lineHeight: {
+          normal: "1.6", // デフォルトの行間を1.6に上書き
+          wide: "2.25", // カスタム行間を追加
+        },
+      },
+    },
+  };
+`;
+
+<Code code={configCode} lang="js" title="tailwind.config.js" />
+
+<DevCaution fileName="tailwind.config.js" />

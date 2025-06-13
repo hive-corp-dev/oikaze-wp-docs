@@ -1,0 +1,44 @@
+---
+title: タイトル
+description: タイトルコンポーネントの作成ガイドなど。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+サイトもしくはページ全体で共通スタイルを持つタイトルコンポーネントの作成方法について。
+
+## タイトルコンポーネントの Twig コード例
+
+以下はテンプレートの例。
+
+```twig
+{% set tag = tag ?: 'h2' %}
+{% set classes = classes | default('') %}
+
+<{{tag}} class="relative text-32 md:text-40 text-center font-bold {{ classes }}">{{text}}</{{tag}}>
+```
+
+- `tag`: タグ名（`h1`, `h2`, `h3`など）を指定する。デフォルトで`h2`になる。
+- `classes`: 追加のクラスを指定する。デフォルトでは空文字列。
+- `text`: タイトルのテキストを指定する。
+
+## タイトルコンポーネントの使用例
+
+作成したコンポーネントは以下のように呼び出す。
+
+```twig
+{% include 'components/title.twig' with {
+  text: 'タイトルのテキストが入ります'
+} %}
+```
+
+引数を全部指定すると以下のようになる。
+
+```twig
+{% include 'components/title.twig' with {
+  text: 'タイトルのテキストが入ります',
+  tag: 'h3',
+  classes: 'mt-8 md:mt-12'
+} %}
+```

@@ -1,0 +1,7 @@
+---
+import { Aside } from "@astrojs/starlight/components";
+
+const { fileName = "theme.json" } = Astro.props;
+---
+
+<Aside type="caution"><code>{fileName}</code>の内容を編集した後は、変更を反映させるために<code>yarn dev</code>を再実行する必要がある。</Aside>

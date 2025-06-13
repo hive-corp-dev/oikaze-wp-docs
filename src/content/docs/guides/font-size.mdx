@@ -5,6 +5,7 @@ description: Get started building your docs site with Starlight.
 
 import { Code } from "@astrojs/starlight/components";
 import { Aside } from "@astrojs/starlight/components";
+import DevCaution from "../../../components/DevCaution.astro";
 
 Tailwind CSS のフォントサイズは、`text-{size}`クラスを使用して設定できる。
 
@@ -52,9 +53,12 @@ export const jsonCode = `
   }
 }
 `;
+
 export const fileName = "app/themes/theme/theme.json";
 
 <Code code={jsonCode} lang="json" title={fileName} />
+
+<DevCaution />
 
 ## カスタム文字サイズの使用方法
 
@@ -68,5 +72,3 @@ export const fileName = "app/themes/theme/theme.json";
   lang="html"
   title="example.twig"
 />
-
-<Aside type="caution">`theme.json`の内容を反映させるには、開発環境をリスタートする必要がある。</Aside>

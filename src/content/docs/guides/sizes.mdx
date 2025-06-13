@@ -1,0 +1,63 @@
+---
+title: サイズ全般について
+description: サイズ全般についての設定。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+import DevCaution from "../../../components/DevCaution.astro";
+
+Tailwind では、サイズを設定するためのクラスが用意されている。
+
+- `w-1`: `width: 4px;`
+- `w-2`: `width: 8px;`
+- `w-3`: `width: 12px;`
+- `w-4`: `width: 16px;`
+
+`1`につき`4px(0.25rem)`のサイズが増加する。
+
+[Tailwind に用意されているサイズ一覧はこちら](https://v2.tailwindcss.com/docs/customizing-spacing)
+
+<Aside type="tip">`width`, `height`, `padding`, `margin`, `gap`など、さまざまなプロパティに適用できる。</Aside>
+
+しかし、このルールにないサイズを使用する場合は、`tailwind.config.js`に追記する必要がある。
+
+## カスタムサイズの設定方法
+
+カスタムサイズを追加する場合は、`tailwind.config.js`の`theme.extend.spacing`に記述する。
+
+export const configCode = `
+  module.exports = {
+    theme: {
+      extend: {
+        spacing: {
+          22: "5.5rem", // 88px
+          30: "7.5rem", // 120px
+          120: "30rem", // 480px
+        },
+      },
+    },
+  };
+`;
+
+<Code code={configCode} lang="js" title="tailwind.config.js" />
+
+`key`には数字を、値には`rem`単位でサイズを指定する。
+
+`120px`なら`30`となるように、`4`で割った値を指定する。
+
+<DevCaution fileName="tailwind.config.js" />
+
+## カスタムサイズの使用方法
+
+カスタムサイズを使用する場合は、`w-{key}`や`h-{key}`のように、`key`を指定してクラスを使用する。
+
+```html
+<div class="w-22 h-30">幅88px、高さ120pxの要素</div>
+```
+
+`padding`や`margin`など、他のプロパティでも同様に使用できる。
+
+```html
+<div class="p-22 m-30">パディング88px、マージン120pxの要素</div>
+```

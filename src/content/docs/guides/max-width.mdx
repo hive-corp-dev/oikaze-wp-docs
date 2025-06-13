@@ -1,0 +1,48 @@
+---
+title: 最大幅について
+description: 最大幅についての設定。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+import DevCaution from "../../../components/DevCaution.astro";
+
+Tailwind では、最大幅は`max-w-{size}`クラスを使用して設定できる。
+
+[max-width のデフォルト値はこちら](https://v3.tailwindcss.com/docs/max-width)
+
+これらのデフォルト値以外には、`theme.extend.spacing`に指定した値を使用可能。
+
+## カスタム最大幅の設定方法
+
+カスタムサイズを追加する場合は、`tailwind.config.js`の`theme.extend.maxWidth`に記述する。
+
+export const configCode = `
+  module.exports = {
+    theme: {
+      extend: {
+        maxWidth: {
+          normal: "60rem", // 960px,
+          wide: "68.75rem", // 1100px
+        },
+      },
+    },
+  };
+`;
+
+<Code code={configCode} lang="js" title="tailwind.config.js" />
+
+`key`には数字を、値には`rem`単位でサイズを指定する。
+
+`120px`なら`30`となるように、`4`で割った値を指定する。
+
+<DevCaution fileName="tailwind.config.js" />
+
+## カスタム最大幅の使用方法
+
+カスタム最大幅を使用するには、`max-w-{key}`のように記述する。
+
+```html
+<div class="max-w-normal">最大幅は960pxです。</div>
+<div class="max-w-wide">最大幅は1100pxです。</div>
+```

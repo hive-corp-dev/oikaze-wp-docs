@@ -16,11 +16,14 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "ガイド",
+          label: "スタイルガイド",
           items: [
             { slug: "guides/font-family" },
             { slug: "guides/font-size" },
+            { slug: "guides/line-height" },
             { slug: "guides/color" },
+            { slug: "guides/sizes" },
+            { slug: "guides/max-width" },
             { slug: "guides/breakpoints" },
             { slug: "guides/background-image" },
           ],
@@ -32,6 +35,10 @@ export default defineConfig({
         {
           label: "ヘルプ",
           autogenerate: { directory: "help" },
+        },
+        {
+          label: "コンポーネントガイド",
+          autogenerate: { directory: "component-guides" },
         },
       ],
     }),

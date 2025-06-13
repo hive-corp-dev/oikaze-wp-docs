@@ -1,0 +1,59 @@
+---
+title: リンクボタン
+description: リンクボタンコンポーネントの作成ガイドなど。
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+サイト全体で共通スタイルを持つリンクボタンコンポーネントの作成方法について。
+
+<Aside type="caution">`button`タグのボタンと`a`タグのボタンは`data`属性が異なるので、コンポーネントを分ける。</Aside>
+
+## リンクボタンコンポーネントの Twig コード例
+
+以下はテンプレートの例。
+
+```twig
+{% set text = text %}
+{% set href = href %}
+{% set classes = classes | default('') %}
+{% set newTab  = newTab  | default(false) %}
+
+<a
+  href="{{ href }}"
+  class="font-bold p-4 {{ classes }}"
+  {% if newTab %}
+    target="_blank" rel="noopener noreferrer"
+  {% endif %}
+>
+  {{ text }}
+</a>
+```
+
+- `text`: ボタンのテキストを指定する。
+- `href`: リンク先の URL を指定する。
+- `classes`: 追加のクラスを指定する。デフォルトでは空文字列。
+- `newTab`: 新しいタブで開くかどうかを指定する。デフォルトでは`false`。
+
+## リンクボタンコンポーネントの使用例
+
+作成したコンポーネントは以下のように呼び出す。
+
+```twig
+{% include 'components/link-button.twig' with {
+  text: 'ボタンのテキストが入ります',
+  href: fn('home_url', '/about/'),
+} %}
+```
+
+引数を全部指定すると以下のようになる。
+
+```twig
+{% include 'components/link-button.twig' with {
+  text: 'ボタンのテキストが入ります',
+  href: 'https://example.com',
+  classes: 'mt-8 md:mt-12',
+  newTab: true
+} %}
+```
