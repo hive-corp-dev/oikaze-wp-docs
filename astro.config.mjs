@@ -18,6 +18,7 @@ export default defineConfig({
         {
           label: "スタイルガイド",
           items: [
+            { slug: "guides/top" },
             { slug: "guides/font-family" },
             { slug: "guides/font-size" },
             { slug: "guides/line-height" },
@@ -29,16 +30,32 @@ export default defineConfig({
           ],
         },
         {
-          label: "参照",
-          autogenerate: { directory: "reference" },
-        },
-        {
-          label: "ヘルプ",
-          autogenerate: { directory: "help" },
-        },
-        {
           label: "コンポーネントガイド",
-          autogenerate: { directory: "component-guides" },
+          items: [
+            "component-guides/top",
+            "component-guides/container",
+            "component-guides/title",
+            "component-guides/link-button",
+          ],
+        },
+        {
+          label: "WordPress",
+          items: [
+            "wordpress/top",
+            {
+              label: "固定ページ",
+              items: [
+                "wordpress/pages/create",
+                "wordpress/pages/contents",
+                "wordpress/pages/acf",
+                "wordpress/pages/static-data",
+              ],
+            },
+          ],
+        },
+        {
+          label: "トラブルシューティング",
+          items: ["troubleshooting/top", "troubleshooting/tailwind"],
         },
       ],
     }),

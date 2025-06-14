@@ -1,0 +1,80 @@
+---
+title: ACF
+description: 固定ページにACFのデータを出力する方法について。
+---
+
+固定ページに ACF のデータを出力する方法について。
+
+## 1. 管理画面で ACF の設定 & データを入稿する
+
+ACF の設定と入稿は、管理画面から行う。
+
+ここは普通の WordPress の ACF の使い方と同じなので省略。
+
+## 2. PHP ファイルで ACF のデータを取得する
+
+固定ページの PHP ファイルで ACF のデータを取得する。
+
+以下は固定ページの PHP テンプレートの例。
+
+```php
+// theme/page-templates/About.php
+
+<?php
+/*
+Template Name: About
+Template Post Type: page
+*/
+
+use Timber\Timber;
+
+$context = Timber::context();
+
+Timber::render('pages/about.twig', $context);
+```
+
+ACF のデータは、すべて`$context`に格納する。
+
+```php
+// theme/page-templates/About.php
+
+
+$context = Timber::context();
+
+// ACFのキー[sample]のデータを取得
+$context['sample'] = get_field('sample', $context['post']->ID);
+
+// ACFのキー[repeater]のデータを取得
+$context['repeater'] = get_field('repeater', $context['post']->ID);
+
+Timber::render('pages/about.twig', $context);
+```
+
+このデータは、`render()`で指定した Twig ファイルで使用できるようになる。
+
+## 3. Twig ファイルで出力する
+
+Twig ファイルで ACF のデータを出力する。
+
+以下は Twig ファイルの例。
+
+```twig
+// theme/views/pages/about.twig
+
+{% extends 'layout/base.twig' %}
+{% block content %}
+  <h2>サンプルデータ</h2>
+  <p>{{ sample }}</p>
+
+  <h2>リピーターデータ</h2>
+  <ul>
+    {% for item in repeater %}
+      <li>{{ item.sub_field }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+```
+
+これらはセクションの Twig ファイル内でも使用することができる。
+
+ACF のフィールドタイプごとの記述方法は、別ページを参照。

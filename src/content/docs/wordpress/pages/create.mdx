@@ -1,0 +1,47 @@
+---
+title: ページ追加
+description: 固定ページの追加方法について。
+---
+
+固定ページの追加方法について。
+
+## 1. PHP ファイルを作成
+
+`/theme/page-templates/`ディレクトリに、固定ページ用の PHP ファイルを作成する。
+
+ここでは例として`About.php`というファイル名で作成する。
+
+```php
+// theme/page-templates/About.php
+
+<?php
+/*
+Template Name: About
+Template Post Type: page
+*/
+
+use Timber\Timber;
+
+$context = Timber::context();
+
+Timber::render('pages/about.twig', $context);
+```
+
+## 2. Twig ファイルを作成
+
+`/theme/views/pages/`ディレクトリに、Twig ファイルを作成する。
+
+ここでは例として`about.twig`というファイル名で作成する。
+
+```twig
+// theme/views/pages/about.twig
+
+{% extends 'layout/base.twig' %}
+{% block content %}
+{/* ここにページコンテンツ */}
+{% endblock %}
+```
+
+## 3. WordPress 管理画面で固定ページを作成
+
+WordPress の管理画面から固定ページを作成し、先ほど作成した PHP ファイルをテンプレートとして選択する。

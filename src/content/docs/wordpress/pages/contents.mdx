@@ -1,0 +1,37 @@
+---
+title: コンテンツ作成
+description: 固定ページのコンテンツ作成方法について。
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+固定ページのコンテンツ作成方法について。
+
+固定ページのコンテンツ部分は、セクションごとに Twig ファイルを作成し、PHP ファイルで読み込む形で構築する。
+
+## 1. セクションの Twig ファイルを作成する
+
+`/theme/views/partials/{page-slug}`ディレクトリに、`{section-slug}.twig`ファイルを作成する。
+
+    ```twig
+    // theme/views/partials/about/mv.twig
+
+    <section class="w-full relative p-10">
+      <h1>ABOUT</h1>
+    </section>
+    ```
+
+## 2. セクションの Twig ファイルをページに読み込む
+
+`/theme/page-templates/{page-slug}.twig`ファイルでセクションを読み込む。
+
+    ```twig
+    // theme/views/pages/about.twig
+
+    {% extends 'layout/base.twig' %}
+    {% block content %}
+      {% include 'partials/about/mv.twig' %}
+      {% include 'partials/about/intro.twig' %}
+      {% include 'partials/about/access.twig' %}
+    {% endblock %}
+    ```

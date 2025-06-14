@@ -1,0 +1,65 @@
+---
+title: 静的データ
+description: 固定ページに静的データを設定・出力する方法について。
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+カード要素やリスト要素など、同じレイアウトが連続するパーツがある場合、データ部分を PHP ファイルで定義し、それをループで出力する場合の手順。
+
+例えば、「サービスの流れ」や「会社概要」のような静的データを管理してループで出力すると、HTML を簡潔に保つことができる。
+
+<Aside type="note">TailwindではHTMLが冗長になりがちなので、同じスタイルが連続する場合は極力ループで実装する。</Aside>
+
+## 1. PHP ファイルでデータを定義する
+
+`/theme/page-templates/{page-slug}.php`ファイル内で、データを定義する。
+
+```php
+// theme/page-templates/About.php
+
+
+$context = Timber::context();
+
+$context['company'] = [
+  [
+    'title' => '会社名',
+    'content' => '株式会社サンプル',
+  ],
+  [
+    'title' => '設立',
+    'content' => '2020年1月1日',
+  ],
+  [
+    'title' => '所在地',
+    'content' => '東京都渋谷区サンプル町1-2-3',
+  ],
+  [
+    'title' => '代表者',
+    'content' => '山田 太郎',
+  ],
+];
+
+Timber::render('pages/about.twig', $context);
+```
+
+ACF と同様、`$context`にデータを格納する。
+
+## 2. Twig ファイルで出力する
+
+`/theme/views/pages/{page-slug}.twig`ファイル内で、データを出力する。
+
+```twig
+// theme/views/pages/about.twig
+
+<dl>
+  {% for item in company %}
+    <div>
+      <dt>{{ item.title }}</dt>
+      <dd>{{ item.content }}</dd>
+    </div>
+  {% endfor %}
+</dl>
+```
+
+これらはセクションの Twig ファイル内でも使用することができる。

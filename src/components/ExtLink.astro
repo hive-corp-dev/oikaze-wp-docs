@@ -1,0 +1,28 @@
+---
+// Props: href (string), children (slot), optional rel and class
+const { href, rel = "noopener noreferrer", class: className, ...rest } = Astro.props;
+import { Icon } from '@astrojs/starlight/components';
+
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel={rel}
+  class:list={['link', className]} {...rest}
+>
+  <slot /><Icon name="external" />
+</a>
+
+<style>
+  .link {
+    display: inline-flex;
+    align-items: center;
+
+    svg {
+      margin-top: 0;
+      margin-left: 0.25rem;
+      font-size: 1.2rem;
+    }
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+title: Tailwind CSS
+description: Tailwind CSS のトラブルシューティングガイド。
+---
+
+import { Code, Badge, Aside, Steps, LinkCard } from "@astrojs/starlight/components";
+
+Tailwind CSS 関連のトラブルシューティングガイド。
+
+## CSS クラスが適用されない
+
+Tailwind CSS のクラスが適用されない場合、以下の可能性がある。
+
+- JS や PHP でクラスを動的に追加している
+- Tailwind CSS に用意されていない値を使用している
+
+### 条件 1. JS や PHP でクラスを動的に追加している
+
+JS の`classList.add()`や、PHP で動的にクラスを追加している場合、そのクラスが一度も静的ファイル内で使用されていないと、Tailwind CSS はそのクラスを生成しない。
+
+例) 以下の場合、`md:order-3`クラスは PHP から Twig に渡している、かつサイト上のどこでも使用されていないので、`md:order-3`クラスは生成されない。
+
+```php
+// About.php
+$context['calendar_items'] = [
+    1 => [
+        'name' => 'JANUARY',
+        'img' => 'images/life/calendar-jan.jpg',
+        'containerClass'  => 'md:order-3',
+    ],
+];
+```
+
+#### 解決方法: safelist.txt にクラス名を記述する
+
+`theme/assets/src/styles/safelist.txt`に、使用したいクラス名を記述することで、Tailwind CSS がそのクラスを生成するようになる。
+
+```txt
+// theme/assets/src/styles/safelist.txt
+md:order-1
+md:order-2
+md:order-3
+mb-15
+md:mb-15
+```
+
+### 条件 2. Tailwind CSS に用意されていない値を使用している
+
+Tailwind CSS のクラスは、デフォルトで用意されている値の範囲内でのみ使用できる。
+
+たとえば、`p-13`(52px 相当)などは用意されていないので、このクラスは適用されない。
+
+#### 解決方法: `tailwind.config.js` にカスタム値を追加する
+
+`tailwind.config.js`の`theme.extend.spacing`に、カスタム値を追加することで、Tailwind CSS がそのクラスを生成するようになる。
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      spacing: {
+        13: "3.25rem", // 52px
+      },
+    },
+  },
+};
+```
+
+<Aside type="tip">
+  `spacing`に設定した値は、`width`, `height`, `padding`, `margin`, `gap`など、さまざまなプロパティに適用できる。
+</Aside>
+
+参考ページ：[スタイルガイド - サイズ全般について](/guides/sizes)
