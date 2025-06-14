@@ -6,25 +6,29 @@ template: splash
 
 import { Card, CardGrid, LinkButton } from "@astrojs/starlight/components";
 
-## ナビゲーション
-
 <CardGrid>
   <Card title="スタイルガイド" icon="pencil">
     <p>Tailwindの仕様、カスタマイズ方法、記述方法など。</p>
-    <LinkButton href="/guides/font-family/" icon="right-arrow">
+    <LinkButton href="/guides/top/" icon="right-arrow">
       スタイルガイドへ
     </LinkButton>
   </Card>
   <Card title="コンポーネントガイド" icon="add-document">
     <p>サイト内で使用するコンポーネントの作成方法。</p>
-    <LinkButton href="/component-guides/link-button/" icon="right-arrow">
+    <LinkButton href="/component-guides/top/" icon="right-arrow">
       コンポーネントガイドへ
     </LinkButton>
   </Card>
-  <Card title="Configure your site" icon="setting">
-    Edit your `sidebar` and other config in `astro.config.mjs`.
+  <Card title="WordPress" icon="setting">
+    <p>WordPressの機能部分に関する説明。</p>
+    <LinkButton href="/component-guides/top/" icon="right-arrow">
+      WordPressガイドへ
+    </LinkButton>
   </Card>
-  <Card title="Read the docs" icon="open-book">
-    Learn more in [the Starlight Docs](https://starlight.astro.build/).
+  <Card title="トラブルシューティング" icon="open-book">
+    <p>バグや問題の解決方法について。</p>
+    <LinkButton href="/component-guides/top/" icon="right-arrow">
+      トラブルシューティングへ
+    </LinkButton>
   </Card>
 </CardGrid>
